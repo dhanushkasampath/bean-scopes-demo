@@ -23,9 +23,29 @@ Unique Instance: The instanceId field allows us to track and verify that each re
 instance of the prototype bean.
 
 Request
+=======
+
+note: Every time when we make HTTP request, it will return the current time in millis.
+That means new object of  'RequestScopedBean' is created at every HTTP request
+
+http://localhost:8081/api/request
+Request ID: REQ-1730793386814
+
+This setup ensures that each request has its own instance of RequestScopedBean, making it suitable for
+request-specific data handling.
+
+
 Session
+=======
+
 Application
+===========
+
 WebSocket
+=========
 
 
 
+
+****** Problems I have ******
+What is the difference between Request and Prototype
