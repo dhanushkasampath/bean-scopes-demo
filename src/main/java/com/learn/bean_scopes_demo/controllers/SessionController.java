@@ -1,42 +1,29 @@
-Singleton
-=========
+package com.learn.bean_scopes_demo.controllers;
 
-note: every time when we make this GET call, it will increment the count.
-That means only single 'SingletonScopedBean' object has been created throughout the entire application
+import com.learn.bean_scopes_demo.beans.SessionScopedBean;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-http://localhost:8081/api/singleton
-Counter value: 3
+@RestController
+@RequestMapping("/api")
+public class SessionController {
 
-Controller Injection: Injecting the singleton bean in the controller means the same
-instance is used each time the controller handles a request.
+    private final SessionScopedBean sessionScopedBean;
 
-prototype
-=========
+    public SessionController(SessionScopedBean sessionScopedBean) {
+        this.sessionScopedBean = sessionScopedBean;
+    }
 
-note: every time when we make this GET call, it will return the current time in millis.
-That means new object of  'PrototypeScopedBean' is created at every request
+    @GetMapping("/session")
+    public String getSessionInfo(HttpSession session) {
+        int accessCount = sessionScopedBean.incrementAccessCount();
+        return "Session ID: " + sessionScopedBean.getSessionId() + ", Access count: " + accessCount;
+    }
+}
 
-http://localhost:8081/api/prototype
-Prototype instance ID: Instance-1730791153895
-
-Unique Instance: The instanceId field allows us to track and verify that each request generates a new
-instance of the prototype bean.
-
-Request
-=======
-
-note: Every time when we make HTTP request, it will return the current time in millis.
-That means new object of  'RequestScopedBean' is created at every HTTP request
-
-http://localhost:8081/api/request
-Request ID: REQ-1730793386814
-
-This setup ensures that each request has its own instance of RequestScopedBean, making it suitable for
-request-specific data handling.
-
-
-Session
-=======
+/**
 
  In this controller:
  Session-scoped Bean Injection: The SessionScopedBean is injected and shared across all requests within the
@@ -70,14 +57,4 @@ Session
 
  This approach makes it easy to maintain state within a user session while keeping data isolated from other users.
 
-Application
-===========
-
-WebSocket
-=========
-
-
-
-
-****** Problems I have ******
-What is the difference between Request and Prototype
+ */
