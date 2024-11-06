@@ -1,5 +1,5 @@
-Singleton
-=========
+1. Singleton
+============
 
 note: every time when we make this GET call, it will increment the count.
 That means only single 'SingletonScopedBean' object has been created throughout the entire application
@@ -10,8 +10,8 @@ Counter value: 3
 Controller Injection: Injecting the singleton bean in the controller means the same
 instance is used each time the controller handles a request.
 
-prototype
-=========
+2. prototype
+============
 
 note: every time when we make this GET call, it will return the current time in millis.
 That means new object of  'PrototypeScopedBean' is created at every request
@@ -22,8 +22,8 @@ Prototype instance ID: Instance-1730791153895
 Unique Instance: The instanceId field allows us to track and verify that each request generates a new
 instance of the prototype bean.
 
-Request
-=======
+3. Request
+==========
 
 note: Every time when we make HTTP request, it will return the current time in millis.
 That means new object of  'RequestScopedBean' is created at every HTTP request
@@ -35,8 +35,8 @@ This setup ensures that each request has its own instance of RequestScopedBean, 
 request-specific data handling.
 
 
-Session
-=======
+4. Session
+==========
 
  In this controller:
  Session-scoped Bean Injection: The SessionScopedBean is injected and shared across all requests within the
@@ -70,14 +70,44 @@ Session
 
  This approach makes it easy to maintain state within a user session while keeping data isolated from other users.
 
-Application
-===========
+5. Application
+==============
 
-WebSocket
-=========
+ In this controller:
+
+ Application-scoped Bean Injection: The ApplicationScopedBean is injected into the controller, and it retains its
+ state across all requests and sessions.
+
+ Global Counter: The incrementGlobalCounter() method is called each time /global-counter is accessed, increasing
+ the count for every request.
+
+ When you run the Spring Boot application and make multiple requests to the /api/global-counter endpoint,
+ you’ll see that the globalCounter is incremented and shared across all requests, regardless of which session
+ or user makes the request.
+
+ Explanation
+ Application Scope: The @Scope("application") annotation ensures that ApplicationScopedBean has a single instance
+ for the entire application context, which is shared across all requests and sessions.
+
+ Shared Data Across All Users: The globalCounter field retains its value across requests and sessions,
+ making it useful for tracking global data, such as an application-wide counter.
+
+ Thread Safety Considerations: Since application-scoped beans are shared across multiple requests and sessions,
+ it’s important to make sure that any mutable state within the bean (like globalCounter) is either synchronized or
+ managed in a thread-safe way to avoid concurrency issues in high-traffic applications.
+
+ This setup is ideal for data that is relevant to the entire application rather than individual sessions or requests.
+ Examples include application-wide counters, configurations, or caches that should be shared globally across all users.
+
+ http://localhost:8081/api/global-counter
+ Global counter value: 1
+
+6. WebSocket
+============
 
 
 
 
 ****** Problems I have ******
-What is the difference between Request and Prototype
+What is the difference between Request and Prototype?
+What is the difference between Singleton and Application?
