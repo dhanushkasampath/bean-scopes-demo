@@ -43,12 +43,13 @@ public class SessionScopedBean implements Serializable {
     private String sessionId;
     private int accessCount;
 
+    //This is called only once
     @PostConstruct
     public void init() {
         // Generate a unique session ID or use some unique attribute
         this.sessionId = "Session-" + System.currentTimeMillis();
         this.accessCount = 0;
-        log.info("SessionScopedBean initialized with ID: {}", sessionId);
+        log.info("SessionScopedBean initialized with ID: {} | count: {}", sessionId, accessCount);
     }
 
     public String getSessionId() {
