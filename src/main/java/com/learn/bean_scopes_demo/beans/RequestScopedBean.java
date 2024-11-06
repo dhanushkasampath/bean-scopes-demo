@@ -35,7 +35,7 @@ public class RequestScopedBean {
     @PostConstruct
     public void init() {
         // Initialize the request ID (could be generated uniquely per request)
-        this.requestId = "REQ-" + System.currentTimeMillis();
-        log.info("RequestScopedBean initialized with ID: " + requestId);
+        this.requestId = "RequestId-" + System.currentTimeMillis();
+        log.info("RequestScopedBean created with ID: " + requestId);
     }
 }

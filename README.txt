@@ -105,9 +105,41 @@ request-specific data handling.
 6. WebSocket
 ============
 
+Too hard to understand !!!!
 
 
 
-****** Problems I have ******
-What is the difference between Request and Prototype?
-What is the difference between Singleton and Application?
+
+
+
+
+
+****** Problems I had ******
+1. What is the difference between Request and Prototype?
+----------------------------------------------------
+
+Prototype scope: new instance of PrototypeScopedBean is created every time it’s requested from the Spring context.
+Request scope:  new instance of RequestScopedBean is created every time it’s requested  by HTTP request.
+
+The difference I saw here is in prototype scope we used below 'ObjectFactory' to get the bean.
+
+ie.
+
+private final ObjectFactory<PrototypeScopedBean> prototypeBeanFactory;
+
+// Then 'PrototypeScopedBean' is obtained by 'prototypeBeanFactory.getObject()' method;
+
+    @GetMapping("/prototype")
+    public String getPrototypeInstance() {
+        // Each call to getObject() returns a new instance of PrototypeScopedBean
+        PrototypeScopedBean prototypeBean = prototypeBeanFactory.getObject();
+        return "Prototype instance ID: " + prototypeBean.getRequestId();
+    }
+
+
+2. What is the difference between Singleton and Application?
+---------------------------------------------------------
+Similar to singleton scope, in Application scope only one instance is created, but it’s tied specifically
+to the lifecycle of the 'web application context' rather than the 'Spring IoC container'.
+
+note: 'web application context' is on top of 'Spring IoC container'.

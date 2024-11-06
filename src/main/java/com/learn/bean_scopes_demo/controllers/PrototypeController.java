@@ -24,7 +24,7 @@ public class PrototypeController {
     public String getPrototypeInstance() {
         // Each call to getObject() returns a new instance of PrototypeScopedBean
         PrototypeScopedBean prototypeBean = prototypeBeanFactory.getObject();
-        return "Prototype instance ID: " + prototypeBean.getInstanceId();
+        return "Prototype instance ID: " + prototypeBean.getRequestId();
     }
 }
 

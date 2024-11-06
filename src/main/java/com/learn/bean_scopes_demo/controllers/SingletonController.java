@@ -34,5 +34,8 @@ public class SingletonController {
     Controller Injection: Injecting the singleton bean in the controller means the same
     instance is used each time the controller handles a request.
 
+    Even though we use different browsers or incognito(these kinds of things refer to session), the value of counter
+    variable does not change
+
 **/
 
