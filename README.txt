@@ -143,3 +143,12 @@ Similar to singleton scope, in Application scope only one instance is created, b
 to the lifecycle of the 'web application context' rather than the 'Spring IoC container'.
 
 note: 'web application context' is on top of 'Spring IoC container'.
+
+
+
+Endpoints exposed
+http://localhost:8081/api/singleton
+http://localhost:8081/api/application
+http://localhost:8081/api/prototype
+http://localhost:8081/api/request
+http://localhost:8081/api/session
