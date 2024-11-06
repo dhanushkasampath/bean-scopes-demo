@@ -20,19 +20,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ApplicationScopedBean {
 
-    private int globalCounter;
+    private int counter = 0;
+
+    public int incrementGlobalCounter() {
+        return ++counter;
+    }
 
     @PostConstruct
     public void init() {
-        this.globalCounter = 0;
-        log.info("ApplicationScopedBean initialized with globalCounter: {}", globalCounter);
-    }
-
-    public int incrementGlobalCounter() {
-        return ++globalCounter;
-    }
-
-    public int getGlobalCounter() {
-        return globalCounter;
+        log.info("ApplicationScopedBean created with ID: " + System.currentTimeMillis());
     }
 }

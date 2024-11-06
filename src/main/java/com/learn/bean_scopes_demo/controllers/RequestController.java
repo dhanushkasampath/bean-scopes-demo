@@ -18,7 +18,7 @@ public class RequestController {
     @GetMapping("/request")
     public String getRequestId() {
         // This will return a unique request ID for each HTTP request
-        return "Request ID: " + requestScopedBean.getRequestId();
+        return "Request scope counter value: " + requestScopedBean.getCounter();
     }
 }
 

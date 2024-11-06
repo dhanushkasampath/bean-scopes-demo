@@ -19,10 +19,10 @@ public class ApplicationController {
         this.applicationScopedBean = applicationScopedBean;
     }
 
-    @GetMapping("/global-counter")
+    @GetMapping("/application")
     public String getGlobalCounter() {
         int count = applicationScopedBean.incrementGlobalCounter();
-        return "Global counter value: " + count;
+        return "Application scope counter value: " + count;
     }
 }
 /**

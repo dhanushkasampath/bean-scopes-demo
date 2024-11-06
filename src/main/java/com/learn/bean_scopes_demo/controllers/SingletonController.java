@@ -19,7 +19,7 @@ public class SingletonController {
     public String getCounter() {
         // Increment the counter and return its current value
         int currentCount = singletonScopedBean.incrementAndGet();
-        return "Counter value: " + currentCount;
+        return "Singleton scope counter value: " + currentCount;
     }
 }
 

@@ -1,5 +1,7 @@
 package com.learn.bean_scopes_demo.beans;
 
+import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,11 +16,19 @@ import org.springframework.stereotype.Component;
  * the entire application context.
  */
 @Component
+@Slf4j
 public class SingletonScopedBean {
 
     private int counter = 0;
 
     public int incrementAndGet(){
-        return ++counter;
+        return ++counter; // every time as the api response we get incremented value of previous one.
+        // because no new bean is created at every time.
+    }
+
+    // This postConstruct method will call only at application start up. Not at every request
+    @PostConstruct
+    public void init() {
+        log.info("SingletonScopedBean created with ID: " + System.currentTimeMillis());
     }
 }

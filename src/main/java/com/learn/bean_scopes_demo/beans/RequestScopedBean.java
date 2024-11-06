@@ -22,20 +22,16 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class RequestScopedBean {
 
-    private String requestId;
+    private int counter = 0;
 
-    public String getRequestId() {
-        return requestId;
+    public int getCounter() {
+        return ++counter; // every time as the api response we get 1. because new bean is created at every time
     }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
-    }
-
+    // This postConstruct method will call at every time when requested.
+    // That confirms this bean is created at everytime it is requested
     @PostConstruct
     public void init() {
-        // Initialize the request ID (could be generated uniquely per request)
-        this.requestId = "RequestId-" + System.currentTimeMillis();
-        log.info("RequestScopedBean created with ID: " + requestId);
+        log.info("RequestScopedBean created with ID: " + System.currentTimeMillis());
     }
 }
